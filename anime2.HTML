@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+
+
+<p>畫布：</p>
+<canvas id="myCanvas" width="810" height="530" style="border:1px solid #d3d3d3;background:#ffffff;">
+
+</canvas>
+<button id="mov" onclick="move()">戰鬥</button>
+<button id="mov" onclick="add()">推入</button>
+<p id="score"></p>
+<script>
+
+var master=[];
+var mos=[];
+//add obj
+ function card(a,h,image){
+    this.atk = a;
+    this.hp = h;
+    this.image=image;
+ }
+  function most(a,h,image){
+    this.atk = a;
+    this.hp = h;
+    this.image=image;
+ }
+ 
+ //game start posation pic
+ function move(){
+ var canvas=document.getElementById("myCanvas");
+ var pic=canvas.getContext("2d");
+
+ pic.clearRect(0, 0, pic.canvas.width, pic.canvas.height);
+
+  for (var i=0;i<=master.length;i++) {
+    if (master[i] !=undefined){
+	 for (var j=0;j<=master.length;j++) {
+	    if(mos[j] !=undefined){
+	    mos[j].hp=mos[j].hp-master[i].atk ;
+		pic.drawImage(master[i].image,0,0,640,898,300,0,160,230);
+		pic.drawImage(mos[j].image,0,0,440,616,300,270,160,230);
+		 if(mos[j].hp<0){
+	       document.getElementById("score").innerHTML="<h1>win</h1>";
+		   clearTimeout(goTime);
+		   }
+		 else{
+		 document.getElementById("score").innerHTML="<h1>"+mos[j].hp+"</h1>";
+          }		 
+	    }
+	  }
+	}
+		  
+  }
+
+  var goTime=goTime=setTimeout('move()',3000);
+ }
+ function add(){
+   var img=new Image();
+   var x=0;
+   img.src="0001.jpg";
+   var img2=new Image();
+   img2.src="0002.jpg";
+   master.push(new card(5800,6200,img));
+   mos.push(new most(3000,38700,img2));
+ }
+</script>
+
+</body>
+</html>
